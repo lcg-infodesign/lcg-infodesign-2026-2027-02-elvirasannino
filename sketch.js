@@ -11,7 +11,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     background("black");
 
-    let numeroBottoni = 200;
+    let numeroBottoni = 144;
     //ceil e floor arrotondano una per eccesso e l'altra per difetto 
     let numeroColonne = ceil(sqrt(numeroBottoni)); 
     let numeroRighe = ceil(sqrt(numeroBottoni));
@@ -25,9 +25,10 @@ function setup() {
         mioBottone(
             xCorrente + dimColonna / 2,
             yCorrente + dimRiga / 2,
-            random(min(dimColonna, dimRiga) * 0.5,
-                    min(dimColonna, dimRiga) * 1.1)
-        );
+            random(dimRiga * 0.5, dimRiga * 0.9) /*voglio che il diametro del bottone sia compreso tra il 50% e il 90% dell'altezza
+             di una cella questo perchè su desktop l'altezza e quindi dimRiga è minore di dimColonna; così il bottone resta nella
+              cella senza sbordare*/
+        );                                      
         
         xCorrente = xCorrente + dimColonna;
 
@@ -38,9 +39,6 @@ function setup() {
     }
 }
 
-function draw() {
-
-}
 
 function mioBottone(_x, _y, _size){
     push();
@@ -49,6 +47,9 @@ function mioBottone(_x, _y, _size){
     angleMode(DEGREES);
     rotate(random(360));
 
+    /*per ottenere un colore casuale tra quelli che ho scelto
+    ho creato una variabile che si salva un numero casuale tra 1 e 8 (incluso)
+    e in base a quello con un if/else assegna un colore corrispondente*/
     let colore = floor(random(1, 9));
     
     if(colore == 1){
@@ -68,6 +69,7 @@ function mioBottone(_x, _y, _size){
     } else {
         fill("#72a8d5");
     }
+    
     stroke("#e3e3e3");
     strokeWeight(2);
 
@@ -78,9 +80,9 @@ function mioBottone(_x, _y, _size){
     circle(0, 0, _size - 10);
 
     /*devono poter avere 2 o 4 fori quindi basta randomicamente salvare 
-    in una variabile un numero compreso tra 1 e 3(escluso) e i valori intermedi
-    arrotondarli per difetto altrimento 1 non esce quasi mai e se la variabile
-    vale 1 ha 2 fori se no ne ha 4*/
+    in una variabile un numero compreso tra 1 e 3(escluso), con floor 
+    arrotondo per difetto quel valore e se la variabile ha salvato 1 
+    allora il bottone avrà 2 fori altrimenti 4*/
     let numeroFori = floor(random(1, 3));
     
     /*voglio che anche la dimensione dei fori sia scelta in modo random
@@ -90,10 +92,10 @@ function mioBottone(_x, _y, _size){
     noStroke();
     fill("black");
 
-    if(numeroFori == 1){
+    if(numeroFori == 1){  //2 fori
         circle(0, -_size / 8, dimFori);
         circle(0, _size / 8, dimFori);
-    } else {
+    } else {   //4 fori
         circle(_size / 8, -_size / 8, dimFori);
         circle(-_size / 8, -_size / 8, dimFori);
         circle(-_size / 8, _size / 8, dimFori);
