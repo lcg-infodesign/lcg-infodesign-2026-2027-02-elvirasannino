@@ -11,7 +11,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     background("black");
 
-    let numeroBottoni = 120;
+    let numeroBottoni = 200;
     //ceil e floor arrotondano una per eccesso e l'altra per difetto 
     let numeroColonne = ceil(sqrt(numeroBottoni)); 
     let numeroRighe = ceil(sqrt(numeroBottoni));
